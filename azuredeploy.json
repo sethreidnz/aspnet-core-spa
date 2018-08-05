@@ -1,0 +1,91 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "web_app_name": {
+          "defaultValue": "[concat(resourceGroup().name, '-web-app')]",
+          "type": "string"
+      },
+      "app_service_plan": {
+          "defaultValue": "[concat(resourceGroup().name, '-app-service-plan')]",
+          "type": "string"
+      },
+      "app_service_plan_sku": {
+          "defaultValue": "F1",
+          "type": "string"
+      }
+  },
+  "variables": {},
+  "resources": [
+      {
+          "comments": "Generalized from resource: '/subscriptions/21e2ad9c-a59a-4b82-8192-a8171fb58ab6/resourceGroups/aspnet-core-spa/providers/Microsoft.Web/serverfarms/aspnet-core-spa'.",
+          "type": "Microsoft.Web/serverfarms",
+          "sku": {
+              "name": "[parameters('app_service_plan_sku')]"
+          },
+          "kind": "app",
+          "name": "[parameters('app_service_plan')]",
+          "apiVersion": "2016-09-01",
+          "location": "Australia East",
+          "scale": null,
+          "properties": {
+              "name": "[parameters('app_service_plan')]",
+              "workerTierName": null,
+              "adminSiteName": null,
+              "hostingEnvironmentProfile": null,
+              "perSiteScaling": false,
+              "reserved": false,
+              "targetWorkerCount": 0,
+              "targetWorkerSizeId": 0
+          },
+          "dependsOn": []
+      },
+      {
+          "comments": "Generalized from resource: '/subscriptions/21e2ad9c-a59a-4b82-8192-a8171fb58ab6/resourceGroups/aspnet-core-spa/providers/Microsoft.Web/sites/aspnet-core-spa'.",
+          "type": "Microsoft.Web/sites",
+          "kind": "app",
+          "name": "[parameters('web_app_name')]",
+          "apiVersion": "2016-08-01",
+          "location": "Australia East",
+          "tags": {
+              "hidden-related:/subscriptions/21e2ad9c-a59a-4b82-8192-a8171fb58ab6/resourcegroups/aspnet-core-spa/providers/Microsoft.Web/serverfarms/aspnet-core-spa": "empty"
+          },
+          "scale": null,
+          "properties": {
+              "enabled": true,
+              "hostNameSslStates": [
+                  {
+                      "name": "[concat(parameters('web_app_name'),'.azurewebsites.net')]",
+                      "sslState": "Disabled",
+                      "virtualIP": null,
+                      "thumbprint": null,
+                      "toUpdate": null,
+                      "hostType": "Standard"
+                  },
+                  {
+                      "name": "[concat(parameters('web_app_name'),'.scm.azurewebsites.net')]",
+                      "sslState": "Disabled",
+                      "virtualIP": null,
+                      "thumbprint": null,
+                      "toUpdate": null,
+                      "hostType": "Repository"
+                  }
+              ],
+              "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('app_service_plan'))]",
+              "reserved": false,
+              "siteConfig": null,
+              "scmSiteAlsoStopped": false,
+              "hostingEnvironmentProfile": null,
+              "clientAffinityEnabled": true,
+              "clientCertEnabled": false,
+              "hostNamesDisabled": false,
+              "containerSize": 0,
+              "dailyMemoryTimeQuota": 0,
+              "cloningInfo": null
+          },
+          "dependsOn": [
+              "[resourceId('Microsoft.Web/serverfarms', parameters('app_service_plan'))]"
+          ]
+      }
+  ]
+}
