@@ -80,7 +80,7 @@ cd src/client
 npm install
 ```
 
-#### Restoring NPM packages
+#### Running the app
 
 Run the following from the root of the repository to run the client app:
 
@@ -89,17 +89,12 @@ cd src/client
 npm start
 ```
 
-## Creating a deployment package
+#### Pointing to remote API server
 
-You need to first build the client and then publish the server. Use the following instructions to do so.
+If you want to deploy the API somewhere so that you could develop on the frontend without running the server project you need to add the following in a file located at `src/client/.env.local` replacing the URI with your development server URI:
 
-### Build the client
-
-Run the following from the root of the repository to build the client app (and copy the files in to the server wwwroot folder):
-
-```bash
-cd src/client
-npm run build
+```
+REACT_APP_API_HOST=https://my-development-server.azurewebsites.net/
 ```
 
 ## Deploying to azure
@@ -137,7 +132,7 @@ az group deployment create --template-file azuredeploy.json --resource-group res
 
 You need to first build the client before you deploy the . Use the following instructions to do so.
 
-### Build the client
+#### Build the client
 
 1. Run the following from the root of the repository to build the client app (and copy the files in to the server wwwroot folder):
 
